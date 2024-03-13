@@ -26,7 +26,7 @@ class ProgPC
         string file_name;
         string port_name;
         int start_adr = 0;
-        int file_lenght  = 0x7fff;
+        int file_lenght = 16384;// 0x7fff;
 
         // Аргументы.
         Console.WriteLine(args.Length);
@@ -73,15 +73,16 @@ class ProgPC
 
 
             default:
-                Console.WriteLine("Имя файла с данными для записи по умолчанию test.bin");
+                Console.WriteLine("Имя файла с данными для записи по умолчанию out.bin");
                 //file_name = "C:\\Users\\Kaa\\Documents\\Speccy\\Z80Kaa\\FW\\out.bin";
-                file_name = "C:\\Users\\Kaa\\Documents\\Speccy\\zs-pentagon\\FW\\out.bin";
-                Console.WriteLine("Имя порта по умолчанию COM9");
-                port_name = "COM9";
+                //file_name = "C:\\Users\\Kaa\\Documents\\Speccy\\zs-pentagon\\FW\\out.bin";
+                file_name = "C:\\Users\\Kaa\\Documents\\Speccy\\Z80BD\\FW\\out.bin";
+                Console.WriteLine("Имя порта по умолчанию COM18");
+                port_name = "COM18";
                 Console.WriteLine("start_adr = 0");
                 start_adr = 0;
-                Console.WriteLine("file_lenght = 0x8000");
-                file_lenght = 0x8000;
+                Console.WriteLine("file_lenght = 0x4000");
+                file_lenght = 0x4000;
                 break;
         }
 
