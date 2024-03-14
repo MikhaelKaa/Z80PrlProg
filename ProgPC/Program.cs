@@ -77,6 +77,7 @@ class ProgPC
                 //file_name = "C:\\Users\\Kaa\\Documents\\Speccy\\Z80Kaa\\FW\\out.bin";
                 //file_name = "C:\\Users\\Kaa\\Documents\\Speccy\\zs-pentagon\\FW\\out.bin";
                 file_name = "C:\\Users\\Kaa\\Documents\\Speccy\\Z80BD\\FW\\out.bin";
+                //file_name = "C:\\Users\\Kaa\\Documents\\Speccy\\Z80BD\\FW\\48.bin";
                 Console.WriteLine("Имя порта по умолчанию COM18");
                 port_name = "COM18";
                 Console.WriteLine("start_adr = 0");
