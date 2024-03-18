@@ -29,6 +29,8 @@ enum commands {
     reset_low,
     reset_high,
     dbg_print,
+    write_port,
+    read_port
 };
 
 typedef struct prog_packet
@@ -125,7 +127,14 @@ void prog_in(uint8_t* Buf, uint16_t Len) {
             mem_print(temporary_buf, 0, sizeof(temporary_buf));
             if(prog_out) prog_out((uint8_t*)&answer_ok, sizeof(answer_ok));
             break;
+        case write_port:
+            printf("write_port not implemented yet\r\n");
+            break;
+        case read_port:
+            printf("read_port not implemented yet\r\n");
+            break;        
         default:
+            printf("Unknown command\r\n");
             break;
         }
     }
