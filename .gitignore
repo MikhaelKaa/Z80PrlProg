@@ -2,3 +2,7 @@
 /ProgPC/.vs
 /ProgPC/bin
 /ProgPC/obj
+/ProgPC_GUI/obj
+/ProgPC_GUI/bin
+/ProgPC_GUI/.vs
+/test_board/build
