@@ -150,7 +150,7 @@ void z80_bus_data_p2o(void) {
     #endif
 }
 
-// Выводы управления WR, RD, MREQ в воздухе.
+// Выводы управления WR, RD, MREQ, IORQ в воздухе.
 void z80_bus_ctrl_p2f(void) {
     #if(Z80_DEBUG_ENV != 1)
     // WR.
@@ -162,12 +162,16 @@ void z80_bus_ctrl_p2f(void) {
     // MREQ.
     LL_GPIO_SetOutputPin(MREQ_GPIO_Port, MREQ_Pin);
     LL_GPIO_SetPinMode(MREQ_GPIO_Port, MREQ_Pin, LL_GPIO_MODE_FLOATING);
+    // IORQ.
+    LL_GPIO_SetOutputPin(IORQ_GPIO_Port, IORQ_Pin);
+    LL_GPIO_SetPinMode(IORQ_GPIO_Port, IORQ_Pin, LL_GPIO_MODE_FLOATING);
+    
     #else
     printf("DBG_ENV: z80_bus_ctrl_p2f\r\n");
     #endif
 }
 
-// Выводы управления WR, RD, MREQ на выход, пушпулл.
+// Выводы управления WR, RD, MREQ, IORQ на выход, пушпулл.
 void z80_bus_ctrl_p2o(void) {
     #if(Z80_DEBUG_ENV != 1)
     // WR.
@@ -187,6 +191,12 @@ void z80_bus_ctrl_p2o(void) {
     LL_GPIO_SetPinSpeed(MREQ_GPIO_Port, MREQ_Pin, LL_GPIO_SPEED_FREQ_HIGH);
     LL_GPIO_SetPinOutputType(MREQ_GPIO_Port, MREQ_Pin, LL_GPIO_OUTPUT_PUSHPULL);
     LL_GPIO_SetOutputPin(MREQ_GPIO_Port, MREQ_Pin);
+
+    // IORQ.
+    LL_GPIO_SetPinMode(IORQ_GPIO_Port, IORQ_Pin, LL_GPIO_MODE_OUTPUT);
+    LL_GPIO_SetPinSpeed(IORQ_GPIO_Port, IORQ_Pin, LL_GPIO_SPEED_FREQ_HIGH);
+    LL_GPIO_SetPinOutputType(IORQ_GPIO_Port, IORQ_Pin, LL_GPIO_OUTPUT_PUSHPULL);
+    LL_GPIO_SetOutputPin(IORQ_GPIO_Port, IORQ_Pin);
     #else
     printf("DBG_ENV: z80_bus_ctrl_p2o\r\n");
     #endif

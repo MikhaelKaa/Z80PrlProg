@@ -44,6 +44,19 @@ void z80_cpu_reset_low(void);
 /// @param  
 void z80_cpu_reset_high(void); 
 
+/* Операции с портами */
+
+/// @brief Чтение из порта.
+/// @param Adr - адрес порта
+/// @return значение байта по адресу
+uint8_t z80_port_read(uint16_t Adr);
+
+/// @brief Запись в порт.
+/// @param Adr - адрес порта
+/// @param Data - Данные для записи в порт
+void z80_port_write(uint16_t Adr, uint8_t Data);
+
+
 /* Операции с памятью */
 
 /// @brief Чтение памяти BBSRAM блоками.

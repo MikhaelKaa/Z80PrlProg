@@ -45,20 +45,21 @@ typedef struct prog_packet
 //const uint8_t protocol_version[4] = {'v', '0', '0', '1'};
 const uint8_t answer_ok[8] = {0x55, answer, 'o', 'k', ' ', ' ', 0x00, 0x00};
 const uint8_t answer_fail[8] = {0x55, answer, 'f', 'a', 'i', 'l', 0x00, 0x00};
-const uint8_t answer_ver[8] = {0x55, answer, 'v', '0', '0', '1', 0x00, 0x00};
+const uint8_t answer_ver[8] = {0x55, answer, 'v', '0', '0', '2', 0x00, 0x00};
 
-
-uint8_t (*prog_out)(uint8_t* Buf, uint16_t Len);
+uint8_t (*prog_out)(uint8_t* Buf, uint16_t Len) = 0;
 
 void prog_in(uint8_t* Buf, uint16_t Len) {
     uint16_t adr = 0;
+    uint8_t data = 0;
+    if(0 == prog_out) return;
     // Все входящие данные размером 8 и заголовком 0x55 интерпретируем как команды.
     if( (Len == sizeof(prog_packet_t)) && (PACK->header = head) ) {
         switch (PACK->command)
         {
         case version:
             printf("command version \r\n");
-            if(prog_out) prog_out((uint8_t*)&answer_ver, sizeof(answer_ver));
+            prog_out((uint8_t*)&answer_ver, sizeof(answer_ver));
             break;
 
         case read:
@@ -66,11 +67,11 @@ void prog_in(uint8_t* Buf, uint16_t Len) {
             printf("read from adr=0x%04x\r\n", adr);
             if(z80_ram_read_block(temporary_buf, adr, sizeof(temporary_buf)) /*!= 0*/) {
                 printf("z80_ram_read_block error\r\n");
-                if(prog_out) prog_out((uint8_t*)&answer_fail, sizeof(answer_fail));
+                prog_out((uint8_t*)&answer_fail, sizeof(answer_fail));
                 break;
             }
             mem_print(temporary_buf, 0, sizeof(temporary_buf));
-            if(prog_out) prog_out(temporary_buf, sizeof(temporary_buf));
+            prog_out(temporary_buf, sizeof(temporary_buf));
             break;
 
         case write:
@@ -78,46 +79,46 @@ void prog_in(uint8_t* Buf, uint16_t Len) {
             printf("write to adr=0x%04x\r\n", adr);
             if(z80_ram_write_block(temporary_buf, adr, sizeof(temporary_buf)) /*!= 0*/) {
                 printf("z80_ram_write_block error\r\n");
-                if(prog_out) prog_out((uint8_t*)&answer_fail, sizeof(answer_fail));
+                prog_out((uint8_t*)&answer_fail, sizeof(answer_fail));
                 break;
             }
-            if(prog_out) prog_out((uint8_t*)&answer_ok, sizeof(answer_ok));
+            prog_out((uint8_t*)&answer_ok, sizeof(answer_ok));
             mem_print(temporary_buf, 0, sizeof(temporary_buf));
             break;
 
         case cpu_suspend:
             z80_cpu_suspend();
-            if(prog_out) prog_out((uint8_t*)&answer_ok, sizeof(answer_ok));
+            prog_out((uint8_t*)&answer_ok, sizeof(answer_ok));
             break;
 
         case cpu_resume:
             z80_cpu_resume();
-            if(prog_out) prog_out((uint8_t*)&answer_ok, sizeof(answer_ok));
+            prog_out((uint8_t*)&answer_ok, sizeof(answer_ok));
             break;
 
         case cpu_reset:
             z80_cpu_reset();
-            if(prog_out) prog_out((uint8_t*)&answer_ok, sizeof(answer_ok));
+            prog_out((uint8_t*)&answer_ok, sizeof(answer_ok));
             break;
 
         case cpu_start:
             z80_cpu_start();
-            if(prog_out) prog_out((uint8_t*)&answer_ok, sizeof(answer_ok));
+            prog_out((uint8_t*)&answer_ok, sizeof(answer_ok));
             break;
 
         case reset_low:
             z80_cpu_reset_low();
-            if(prog_out) prog_out((uint8_t*)&answer_ok, sizeof(answer_ok));
+            prog_out((uint8_t*)&answer_ok, sizeof(answer_ok));
             break;
 
         case reset_high:
             z80_cpu_reset_high();
-            if(prog_out) prog_out((uint8_t*)&answer_ok, sizeof(answer_ok));
+            prog_out((uint8_t*)&answer_ok, sizeof(answer_ok));
             break;
 
         case erase_all:
             z80_ram_erase_all();
-            if(prog_out) prog_out((uint8_t*)&answer_ok, sizeof(answer_ok));
+            prog_out((uint8_t*)&answer_ok, sizeof(answer_ok));
             break;
         
         case dbg_print:
@@ -125,14 +126,22 @@ void prog_in(uint8_t* Buf, uint16_t Len) {
             z80_ram_read_block(temporary_buf, adr, sizeof(temporary_buf));
             printf("dbg_print adr=%04x\r\n", adr);
             mem_print(temporary_buf, 0, sizeof(temporary_buf));
-            if(prog_out) prog_out((uint8_t*)&answer_ok, sizeof(answer_ok));
+            prog_out((uint8_t*)&answer_ok, sizeof(answer_ok));
             break;
+
         case write_port:
-            printf("write_port not implemented yet\r\n");
+            adr = *((uint16_t*)&(PACK->cmd_data[0]));
+            data = *((uint8_t*)&(PACK->cmd_data[2]));
+            z80_port_write(adr, data);
+            prog_out((uint8_t*)&answer_ok, sizeof(answer_ok));
+            //printf("write_port not implemented yet\r\n");
             break;
+
         case read_port:
+            prog_out((uint8_t*)&answer_ok, sizeof(answer_ok));
             printf("read_port not implemented yet\r\n");
-            break;        
+            break;
+
         default:
             printf("Unknown command\r\n");
             break;
@@ -143,9 +152,8 @@ void prog_in(uint8_t* Buf, uint16_t Len) {
     if(Len == data_len) {
         printf("new 64 bytes\r\n");
         memcpy(temporary_buf, Buf, sizeof(temporary_buf));
-        if(prog_out) prog_out((uint8_t*)&answer_ok, sizeof(answer_ok));
+        prog_out((uint8_t*)&answer_ok, sizeof(answer_ok));
     }
-    
 }
 
 void mem_print(uint8_t *buf, uint16_t adr, uint16_t len) {

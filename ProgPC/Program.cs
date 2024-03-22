@@ -18,6 +18,8 @@ class ProgPC
         reset_low,
         reset_high,
         dbg_print,
+        write_port,
+        read_port
     };
 
     static byte[] temrorary_buf = new byte[64];
@@ -77,7 +79,7 @@ class ProgPC
                 //file_name = "C:\\Users\\Kaa\\Documents\\Speccy\\Z80Kaa\\FW\\out.bin";
                 file_name = "C:\\Users\\Kaa\\Documents\\Speccy\\zs-pentagon\\FW\\out.bin";
                 Console.WriteLine("Имя порта по умолчанию COM9");
-                port_name = "COM9";
+                port_name = "COM18";
                 Console.WriteLine("start_adr = 0");
                 start_adr = 0;
                 Console.WriteLine("file_lenght = 0x8000");
@@ -114,6 +116,33 @@ class ProgPC
         }
 
 
+        Console.WriteLine("send cmd cpu suspend");
+        SendCmd((int)Prog_cmd.cpu_suspend);
+        Thread.Sleep(100);
+/*
+        UInt16 adr = 0x7ffd;
+        for (int i = 0; i < 16; i++)
+        {
+            byte[] data = new byte[8];
+            data[0] = 0x55; // header
+            data[1] = (byte)(int)Prog_cmd.write_port;
+            data[2] = (byte)(adr >> 0);
+            data[3] = (byte)(adr >> 8);
+            data[4] = (byte)(i%2<<4); // 
+            data[5] = 0x00; // 
+            data[6] = 0x00; // 
+            data[7] = 0x00; // 
+
+            Console.WriteLine("7FFD {0}", (byte)(i % 2 << 4));
+
+            port.Write(data, 0, 8);
+            Thread.Sleep(300);
+        }
+
+        Thread.Sleep(300);
+        port.Close();
+        Environment.Exit(0);
+*/
 
         while (true)
         {
