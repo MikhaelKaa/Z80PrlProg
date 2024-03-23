@@ -47,13 +47,13 @@ void z80_cpu_reset_high(void);
 /* Операции с портами */
 
 /// @brief Чтение из порта.
-/// @param Adr - адрес порта
-/// @return значение байта по адресу
+/// @param Adr - адрес порта.
+/// @return значение байта по адресу порта.
 uint8_t z80_port_read(uint16_t Adr);
 
 /// @brief Запись в порт.
-/// @param Adr - адрес порта
-/// @param Data - Данные для записи в порт
+/// @param Adr - адрес порта.
+/// @param Data - Данные для записи в порт.
 void z80_port_write(uint16_t Adr, uint8_t Data);
 
 
@@ -72,6 +72,16 @@ int z80_ram_read_block(uint8_t *Buf, uint16_t Addr, uint16_t Len);
 /// @param Len количество байт для записи.
 /// @return 0 
 int z80_ram_write_block(uint8_t *Buf, uint16_t Addr, uint16_t Len); 
+
+/// @brief Чтение данных из BBSRAM по адресу.
+/// @param Adr - адрес 0...(RAM_LEN-1)
+/// @return значение байта по адресу
+uint8_t z80_ram_read(uint16_t Adr);
+
+/// @brief Запись байта в BBSRAM.
+/// @param Adr  - адрес 0...RAM_LEN-1
+/// @param Data значение байта по адресу
+void z80_ram_write(uint16_t Adr, uint8_t Data);
 
 /// @brief Тест заполняем весь объем памяти нулями (стирает).
 /// @param  адреса BBSRAM от 0 до (RAM_LEN-1)

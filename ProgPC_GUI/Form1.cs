@@ -35,8 +35,8 @@ namespace ProgPC_GUI
         {
             version = 0,
             answer,
-            read,
-            write,
+            read_buf,
+            write_buf,
             erase_all,
             cpu_suspend,
             cpu_resume,
@@ -46,7 +46,9 @@ namespace ProgPC_GUI
             reset_high,
             dbg_print,
             write_port,
-            read_port
+            read_port,
+            write_byte,
+            read_byte
         };
 
 
@@ -94,6 +96,8 @@ namespace ProgPC_GUI
             8,
             StopBits.One);
 
+            port.Encoding = Encoding.UTF8;
+
             if (port.IsOpen == true)
             {
                 port.Close();
@@ -116,16 +120,11 @@ namespace ProgPC_GUI
                     SerialDataReceivedEventArgs e)
         {
             SerialPort sp = (SerialPort)sender;
-            string indata = sp.ReadExisting();
-            if (indata == null) return;
-            byte[] byteArray = Encoding.UTF8.GetBytes(indata);
-
-            label1.Invoke(new Action(() => { label1.Text = indata; }));
-
-
-            //data received on serial port is asssigned to "indata" string
-            //Console.WriteLine("Received data:");
-            //Console.Write(indata);
+            byte[] byteArray = new byte[8];
+            int bytesRead = sp.Read(byteArray, 0, 8);
+            string data_hex = BitConverter.ToString(byteArray).Replace("-", " ");
+            label1.Invoke(new Action(() => { label1.Text = "empty"; }));
+            label2.Invoke(new Action(() => { label2.Text = data_hex; }));
         }
 
         private void UpdateLabel(string text)
@@ -182,7 +181,7 @@ namespace ProgPC_GUI
             data2send[6] = 0x00;
             data2send[7] = 0x00;
 
-            MessageBox.Show($"send_command_to_z80db {data2send[2].ToString()}, {data2send[3].ToString()}, {data2send[4].ToString()}");
+            //MessageBox.Show($"send_command_to_z80db {data2send[2].ToString()}, {data2send[3].ToString()}, {data2send[4].ToString()}");
 
             if (port == null) return;
 
@@ -230,13 +229,20 @@ namespace ProgPC_GUI
                 data = Convert.ToInt32(textBox_data.Text, 16);
             }
             catch { return; }
-
+            //send_command_to_z80db((byte)Prog_cmd.cpu_suspend);
             send_command_to_z80db((byte)Prog_cmd.write_port, adr, data);
+            //send_command_to_z80db((byte)Prog_cmd.cpu_resume);
         }
 
         private void button_port_read_Click(object sender, EventArgs e)
         {
-
+            int adr;
+            try
+            {
+                adr = Convert.ToInt32(textBox_adr.Text, 16);
+            }
+            catch { return; }
+            send_command_to_z80db((byte)Prog_cmd.read_port, adr);
         }
 
         private void textBox_adr_TextChanged(object sender, EventArgs e)

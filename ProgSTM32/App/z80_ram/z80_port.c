@@ -32,26 +32,27 @@ uint8_t z80_port_read(uint16_t Adr) {
 
 void z80_port_write(uint16_t Adr, uint8_t Data) {
     if(!z80_is_stopped) return;
-    RAMMDELAY(10);
+    RAMMDELAY(25);
     // Установим сигнал RD в высокий уровень.
     LL_GPIO_SetOutputPin(RD_GPIO_Port, RD_Pin);
-    RAMMDELAY(20); // TODO: Возможно задерки можно уменшить, а некоторые вообще убрать.
+
+    RAMMDELAY(5); // TODO: Возможно задерки можно уменшить, а некоторые вообще убрать.
     // Установим адрес на шине.
     LL_GPIO_WriteOutputPort(RAMM_ADR_PORT, Adr);
-    RAMMDELAY(20);
+    RAMMDELAY(25);
     // Установим данные на шине.
     GPIOA->ODR = Data;
+    RAMMDELAY(25);
     // Установим сигнал IORQ в низкий уровень.
     LL_GPIO_ResetOutputPin(IORQ_GPIO_Port, IORQ_Pin);
-    //RAMMDELAY(20);
+    RAMMDELAY(25);
     // WR в низкий уровень.
     LL_GPIO_ResetOutputPin(WR_GPIO_Port, WR_Pin);
-    //RAMMDELAY(20);
-    RAMMDELAY(20);
+    RAMMDELAY(22);
     // WR в высокий уровень.
     LL_GPIO_SetOutputPin(WR_GPIO_Port, WR_Pin);
-    RAMMDELAY(10);
+    RAMMDELAY(25);
     // Установим сигнал IORQ в высокий уровень.
     LL_GPIO_SetOutputPin(IORQ_GPIO_Port, IORQ_Pin);
-    RAMMDELAY(10);
+    RAMMDELAY(25);
 }

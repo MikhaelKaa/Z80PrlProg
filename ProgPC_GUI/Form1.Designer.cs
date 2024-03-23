@@ -44,6 +44,7 @@
             this.button_port_write = new System.Windows.Forms.Button();
             this.button_port_read = new System.Windows.Forms.Button();
             this.textBox_debug = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button_port
@@ -203,16 +204,27 @@
             // 
             // textBox_debug
             // 
-            this.textBox_debug.Location = new System.Drawing.Point(335, 105);
+            this.textBox_debug.Location = new System.Drawing.Point(169, 102);
             this.textBox_debug.Name = "textBox_debug";
             this.textBox_debug.Size = new System.Drawing.Size(43, 20);
             this.textBox_debug.TabIndex = 15;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(166, 86);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "label2";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(533, 231);
+            this.ClientSize = new System.Drawing.Size(547, 231);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox_debug);
             this.Controls.Add(this.button_port_read);
             this.Controls.Add(this.button_port_write);
@@ -256,6 +268,7 @@
         private System.Windows.Forms.Button button_port_write;
         private System.Windows.Forms.Button button_port_read;
         private System.Windows.Forms.TextBox textBox_debug;
+        private System.Windows.Forms.Label label2;
     }
 }
 

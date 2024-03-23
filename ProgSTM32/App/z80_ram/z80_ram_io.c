@@ -34,6 +34,7 @@ int z80_ram_write_block(uint8_t *buf, uint16_t addr, uint16_t len) {
 } 
 
 void z80_ram_write(uint16_t adr, uint8_t data) {
+    if(!z80_is_stopped) return;
     #if(Z80_DEBUG_ENV != 1)
     RAMMDELAY(10);
     // Установим сигнал RD в высокий уровень.
@@ -64,6 +65,7 @@ void z80_ram_write(uint16_t adr, uint8_t data) {
 }
 
 uint8_t z80_ram_read(uint16_t adr) {
+    if(!z80_is_stopped) return 0;
     uint8_t data = 0;
     #if(Z80_DEBUG_ENV != 1)
     // WR в высокий уровень.

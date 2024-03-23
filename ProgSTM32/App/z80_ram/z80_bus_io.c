@@ -194,7 +194,7 @@ void z80_bus_ctrl_p2o(void) {
 
     // IORQ.
     LL_GPIO_SetPinMode(IORQ_GPIO_Port, IORQ_Pin, LL_GPIO_MODE_OUTPUT);
-    LL_GPIO_SetPinSpeed(IORQ_GPIO_Port, IORQ_Pin, LL_GPIO_SPEED_FREQ_HIGH);
+    LL_GPIO_SetPinSpeed(IORQ_GPIO_Port, IORQ_Pin, LL_GPIO_SPEED_FREQ_MEDIUM);
     LL_GPIO_SetPinOutputType(IORQ_GPIO_Port, IORQ_Pin, LL_GPIO_OUTPUT_PUSHPULL);
     LL_GPIO_SetOutputPin(IORQ_GPIO_Port, IORQ_Pin);
     #else

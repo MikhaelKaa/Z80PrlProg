@@ -13,15 +13,6 @@
 // Задержка на NOPах. Привязана к частоте MCU.
 #define RAMMDELAY(t) for(uint32_t n = 0; n < t; n++) asm("NOP")
 
-/// @brief Чтение данных из BBSRAM по адресу.
-/// @param Adr - адрес 0...(RAM_LEN-1)
-/// @return значение байта по адресу
-uint8_t z80_ram_read(uint16_t Adr);
-
-/// @brief Запись байта в BBSRAM.
-/// @param Adr  - адрес 0...RAM_LEN-1
-/// @param Data значение байта по адресу
-void z80_ram_write(uint16_t Adr, uint8_t Data);
 
 /* Функции для отладки. */
 

@@ -19,8 +19,8 @@ void mem_print(uint8_t *buf, uint16_t adr, uint16_t len);
 enum commands {
     version = 0,
     answer,
-    read,
-    write,
+    read_buf,
+    write_buf,
     erase_all,
     cpu_suspend,
     cpu_resume,
@@ -30,7 +30,9 @@ enum commands {
     reset_high,
     dbg_print,
     write_port,
-    read_port
+    read_port,
+    write_byte,
+    read_byte
 };
 
 typedef struct prog_packet
@@ -46,6 +48,8 @@ typedef struct prog_packet
 const uint8_t answer_ok[8] = {0x55, answer, 'o', 'k', ' ', ' ', 0x00, 0x00};
 const uint8_t answer_fail[8] = {0x55, answer, 'f', 'a', 'i', 'l', 0x00, 0x00};
 const uint8_t answer_ver[8] = {0x55, answer, 'v', '0', '0', '2', 0x00, 0x00};
+uint8_t answer_temp[8] = {0x55, answer, 0x00, 0x00 , 0x00, 0x00, 0x00, 0x00};
+
 
 uint8_t (*prog_out)(uint8_t* Buf, uint16_t Len) = 0;
 
@@ -62,7 +66,7 @@ void prog_in(uint8_t* Buf, uint16_t Len) {
             prog_out((uint8_t*)&answer_ver, sizeof(answer_ver));
             break;
 
-        case read:
+        case read_buf:
             adr = *((uint16_t*)&(PACK->cmd_data[0]));
             printf("read from adr=0x%04x\r\n", adr);
             if(z80_ram_read_block(temporary_buf, adr, sizeof(temporary_buf)) /*!= 0*/) {
@@ -74,7 +78,7 @@ void prog_in(uint8_t* Buf, uint16_t Len) {
             prog_out(temporary_buf, sizeof(temporary_buf));
             break;
 
-        case write:
+        case write_buf:
             adr = *((uint16_t*)&(PACK->cmd_data[0]));
             printf("write to adr=0x%04x\r\n", adr);
             if(z80_ram_write_block(temporary_buf, adr, sizeof(temporary_buf)) /*!= 0*/) {
@@ -137,8 +141,28 @@ void prog_in(uint8_t* Buf, uint16_t Len) {
             break;
 
         case read_port:
+            adr = *((uint16_t*)&(PACK->cmd_data[0]));
+            *(uint16_t*)&(answer_temp[2]) = adr;
+            answer_temp[4] = z80_port_read(adr);
+            answer_temp[5] = 'p';
+            prog_out((uint8_t*)&answer_temp, sizeof(answer_temp));
+            //printf("read_port not implemented yet\r\n");
+            break;
+
+        case write_byte:
+            adr = *((uint16_t*)&(PACK->cmd_data[0]));
+            data = *((uint8_t*)&(PACK->cmd_data[2]));
+            z80_ram_write(adr, data);
             prog_out((uint8_t*)&answer_ok, sizeof(answer_ok));
-            printf("read_port not implemented yet\r\n");
+            break;
+
+        case read_byte:
+            adr = *((uint16_t*)&(PACK->cmd_data[0]));
+            *(uint16_t*)&(answer_temp[2]) = adr;
+            answer_temp[4] = z80_ram_read(adr);
+            answer_temp[5] = 'm';
+            prog_out((uint8_t*)&answer_temp, sizeof(answer_temp));
+            //printf("read_port not implemented yet\r\n");
             break;
 
         default:
