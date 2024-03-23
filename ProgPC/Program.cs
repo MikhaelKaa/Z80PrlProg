@@ -119,7 +119,7 @@ class ProgPC
         Console.WriteLine("send cmd cpu suspend");
         SendCmd((int)Prog_cmd.cpu_suspend);
         Thread.Sleep(100);
-/*
+
         UInt16 adr = 0x7ffd;
         for (int i = 0; i < 16; i++)
         {
@@ -142,7 +142,7 @@ class ProgPC
         Thread.Sleep(300);
         port.Close();
         Environment.Exit(0);
-*/
+
 
         while (true)
         {

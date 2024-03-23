@@ -33,13 +33,25 @@
             this.button_port_close = new System.Windows.Forms.Button();
             this.button_test = new System.Windows.Forms.Button();
             this.label_port_status = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.button_suspend = new System.Windows.Forms.Button();
+            this.button_resume = new System.Windows.Forms.Button();
+            this.button_reset = new System.Windows.Forms.Button();
+            this.textBox_adr = new System.Windows.Forms.TextBox();
+            this.label_adr = new System.Windows.Forms.Label();
+            this.label_data = new System.Windows.Forms.Label();
+            this.textBox_data = new System.Windows.Forms.TextBox();
+            this.button_port_write = new System.Windows.Forms.Button();
+            this.button_port_read = new System.Windows.Forms.Button();
+            this.textBox_debug = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // button_port
             // 
-            this.button_port.Location = new System.Drawing.Point(140, 12);
+            this.button_port.Location = new System.Drawing.Point(93, 8);
+            this.button_port.Margin = new System.Windows.Forms.Padding(2);
             this.button_port.Name = "button_port";
-            this.button_port.Size = new System.Drawing.Size(88, 44);
+            this.button_port.Size = new System.Drawing.Size(59, 29);
             this.button_port.TabIndex = 0;
             this.button_port.Text = "Open";
             this.button_port.UseVisualStyleBackColor = true;
@@ -48,17 +60,18 @@
             // listBox_ports
             // 
             this.listBox_ports.FormattingEnabled = true;
-            this.listBox_ports.ItemHeight = 20;
-            this.listBox_ports.Location = new System.Drawing.Point(14, 12);
+            this.listBox_ports.Location = new System.Drawing.Point(9, 8);
+            this.listBox_ports.Margin = new System.Windows.Forms.Padding(2);
             this.listBox_ports.Name = "listBox_ports";
-            this.listBox_ports.Size = new System.Drawing.Size(120, 164);
+            this.listBox_ports.Size = new System.Drawing.Size(81, 108);
             this.listBox_ports.TabIndex = 1;
             // 
             // button_port_close
             // 
-            this.button_port_close.Location = new System.Drawing.Point(140, 62);
+            this.button_port_close.Location = new System.Drawing.Point(93, 40);
+            this.button_port_close.Margin = new System.Windows.Forms.Padding(2);
             this.button_port_close.Name = "button_port_close";
-            this.button_port_close.Size = new System.Drawing.Size(88, 44);
+            this.button_port_close.Size = new System.Drawing.Size(59, 29);
             this.button_port_close.TabIndex = 2;
             this.button_port_close.Text = "Close";
             this.button_port_close.UseVisualStyleBackColor = true;
@@ -66,9 +79,10 @@
             // 
             // button_test
             // 
-            this.button_test.Location = new System.Drawing.Point(528, 80);
+            this.button_test.Location = new System.Drawing.Point(179, 8);
+            this.button_test.Margin = new System.Windows.Forms.Padding(2);
             this.button_test.Name = "button_test";
-            this.button_test.Size = new System.Drawing.Size(88, 44);
+            this.button_test.Size = new System.Drawing.Size(59, 29);
             this.button_test.TabIndex = 3;
             this.button_test.Text = "Send test";
             this.button_test.UseVisualStyleBackColor = true;
@@ -77,23 +91,145 @@
             // label_port_status
             // 
             this.label_port_status.AutoSize = true;
-            this.label_port_status.Location = new System.Drawing.Point(156, 133);
+            this.label_port_status.Location = new System.Drawing.Point(104, 86);
+            this.label_port_status.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_port_status.Name = "label_port_status";
-            this.label_port_status.Size = new System.Drawing.Size(51, 20);
+            this.label_port_status.Size = new System.Drawing.Size(35, 13);
             this.label_port_status.TabIndex = 4;
             this.label_port_status.Text = "label1";
             this.label_port_status.Click += new System.EventHandler(this.label_port_status_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(193, 48);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "label1";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // button_suspend
+            // 
+            this.button_suspend.Location = new System.Drawing.Point(9, 124);
+            this.button_suspend.Margin = new System.Windows.Forms.Padding(2);
+            this.button_suspend.Name = "button_suspend";
+            this.button_suspend.Size = new System.Drawing.Size(86, 29);
+            this.button_suspend.TabIndex = 6;
+            this.button_suspend.Text = "Z80 suspend";
+            this.button_suspend.UseVisualStyleBackColor = true;
+            this.button_suspend.Click += new System.EventHandler(this.button_suspend_Click);
+            // 
+            // button_resume
+            // 
+            this.button_resume.Location = new System.Drawing.Point(9, 157);
+            this.button_resume.Margin = new System.Windows.Forms.Padding(2);
+            this.button_resume.Name = "button_resume";
+            this.button_resume.Size = new System.Drawing.Size(86, 29);
+            this.button_resume.TabIndex = 7;
+            this.button_resume.Text = "Z80 resume";
+            this.button_resume.UseVisualStyleBackColor = true;
+            this.button_resume.Click += new System.EventHandler(this.button_resume_Click);
+            // 
+            // button_reset
+            // 
+            this.button_reset.Location = new System.Drawing.Point(9, 190);
+            this.button_reset.Margin = new System.Windows.Forms.Padding(2);
+            this.button_reset.Name = "button_reset";
+            this.button_reset.Size = new System.Drawing.Size(86, 29);
+            this.button_reset.TabIndex = 8;
+            this.button_reset.Text = "Z80 reset";
+            this.button_reset.UseVisualStyleBackColor = true;
+            this.button_reset.Click += new System.EventHandler(this.button_reset_Click);
+            // 
+            // textBox_adr
+            // 
+            this.textBox_adr.Location = new System.Drawing.Point(335, 21);
+            this.textBox_adr.Name = "textBox_adr";
+            this.textBox_adr.Size = new System.Drawing.Size(43, 20);
+            this.textBox_adr.TabIndex = 9;
+            this.textBox_adr.TextChanged += new System.EventHandler(this.textBox_adr_TextChanged);
+            // 
+            // label_adr
+            // 
+            this.label_adr.AutoSize = true;
+            this.label_adr.Location = new System.Drawing.Point(285, 24);
+            this.label_adr.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_adr.Name = "label_adr";
+            this.label_adr.Size = new System.Drawing.Size(45, 13);
+            this.label_adr.TabIndex = 10;
+            this.label_adr.Text = "Address";
+            // 
+            // label_data
+            // 
+            this.label_data.AutoSize = true;
+            this.label_data.Location = new System.Drawing.Point(285, 49);
+            this.label_data.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_data.Name = "label_data";
+            this.label_data.Size = new System.Drawing.Size(30, 13);
+            this.label_data.TabIndex = 12;
+            this.label_data.Text = "Data";
+            // 
+            // textBox_data
+            // 
+            this.textBox_data.Location = new System.Drawing.Point(335, 46);
+            this.textBox_data.Name = "textBox_data";
+            this.textBox_data.Size = new System.Drawing.Size(43, 20);
+            this.textBox_data.TabIndex = 11;
+            this.textBox_data.TextChanged += new System.EventHandler(this.textBox_data_TextChanged);
+            // 
+            // button_port_write
+            // 
+            this.button_port_write.Location = new System.Drawing.Point(398, 17);
+            this.button_port_write.Margin = new System.Windows.Forms.Padding(2);
+            this.button_port_write.Name = "button_port_write";
+            this.button_port_write.Size = new System.Drawing.Size(85, 27);
+            this.button_port_write.TabIndex = 13;
+            this.button_port_write.Text = "Port write";
+            this.button_port_write.UseVisualStyleBackColor = true;
+            this.button_port_write.Click += new System.EventHandler(this.button_port_write_Click);
+            // 
+            // button_port_read
+            // 
+            this.button_port_read.Location = new System.Drawing.Point(398, 49);
+            this.button_port_read.Margin = new System.Windows.Forms.Padding(2);
+            this.button_port_read.Name = "button_port_read";
+            this.button_port_read.Size = new System.Drawing.Size(85, 27);
+            this.button_port_read.TabIndex = 14;
+            this.button_port_read.Text = "Port read";
+            this.button_port_read.UseVisualStyleBackColor = true;
+            this.button_port_read.Click += new System.EventHandler(this.button_port_read_Click);
+            // 
+            // textBox_debug
+            // 
+            this.textBox_debug.Location = new System.Drawing.Point(335, 105);
+            this.textBox_debug.Name = "textBox_debug";
+            this.textBox_debug.Size = new System.Drawing.Size(43, 20);
+            this.textBox_debug.TabIndex = 15;
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(533, 231);
+            this.Controls.Add(this.textBox_debug);
+            this.Controls.Add(this.button_port_read);
+            this.Controls.Add(this.button_port_write);
+            this.Controls.Add(this.label_data);
+            this.Controls.Add(this.textBox_data);
+            this.Controls.Add(this.label_adr);
+            this.Controls.Add(this.textBox_adr);
+            this.Controls.Add(this.button_reset);
+            this.Controls.Add(this.button_resume);
+            this.Controls.Add(this.button_suspend);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.label_port_status);
             this.Controls.Add(this.button_test);
             this.Controls.Add(this.button_port_close);
             this.Controls.Add(this.listBox_ports);
             this.Controls.Add(this.button_port);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "PCProg_GUI";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -109,6 +245,17 @@
         private System.Windows.Forms.Button button_port_close;
         private System.Windows.Forms.Button button_test;
         private System.Windows.Forms.Label label_port_status;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button_suspend;
+        private System.Windows.Forms.Button button_resume;
+        private System.Windows.Forms.Button button_reset;
+        private System.Windows.Forms.TextBox textBox_adr;
+        private System.Windows.Forms.Label label_adr;
+        private System.Windows.Forms.Label label_data;
+        private System.Windows.Forms.TextBox textBox_data;
+        private System.Windows.Forms.Button button_port_write;
+        private System.Windows.Forms.Button button_port_read;
+        private System.Windows.Forms.TextBox textBox_debug;
     }
 }
 

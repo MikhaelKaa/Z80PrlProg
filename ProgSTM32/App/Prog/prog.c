@@ -134,7 +134,6 @@ void prog_in(uint8_t* Buf, uint16_t Len) {
             data = *((uint8_t*)&(PACK->cmd_data[2]));
             z80_port_write(adr, data);
             prog_out((uint8_t*)&answer_ok, sizeof(answer_ok));
-            //printf("write_port not implemented yet\r\n");
             break;
 
         case read_port:
@@ -143,6 +142,7 @@ void prog_in(uint8_t* Buf, uint16_t Len) {
             break;
 
         default:
+            prog_out((uint8_t*)&answer_fail, sizeof(answer_fail));
             printf("Unknown command\r\n");
             break;
         }
