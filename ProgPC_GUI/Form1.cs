@@ -125,8 +125,16 @@ namespace ProgPC_GUI
             string data_hex = BitConverter.ToString(byteArray).Replace("-", " ");
             label1.Invoke(new Action(() => { label1.Text = "empty"; }));
             label2.Invoke(new Action(() => { label2.Text = data_hex; }));
-        }
 
+
+            if (byteArray[5] == 'm' || byteArray[5] == 'p')
+            {
+                int result = byteArray[4];
+                string result_str = result.ToString("X2");
+                label1.Invoke(new Action(() => { textBox_read_result.Text = "0x"+result_str; }));
+            }
+        }
+/*
         private void UpdateLabel(string text)
         {
             if (this.InvokeRequired)
@@ -138,6 +146,7 @@ namespace ProgPC_GUI
                 label1.Text = text;
             }
         }
+*/
 
         private void button_port_close_Click(object sender, EventArgs e)
         {
@@ -146,7 +155,7 @@ namespace ProgPC_GUI
 
         private void button_test_Click(object sender, EventArgs e)
         {
-            send_command_to_z80db((byte)Prog_cmd.cpu_resume);
+            //send_command_to_z80db((byte)Prog_cmd.cpu_resume);
         }
 
         private void label_port_status_Click(object sender, EventArgs e)

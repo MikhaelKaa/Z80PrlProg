@@ -82,14 +82,16 @@ class ProgPC
                 port_name = "COM18";
                 Console.WriteLine("start_adr = 0");
                 start_adr = 0;
-                Console.WriteLine("file_lenght = 0x8000");
-                file_lenght = 0x8000;
+                //Console.WriteLine("file_lenght = 0x8000");
+                //file_lenght = 0x8000;
                 break;
         }
 
 
 
         FileStream stream = new FileStream(file_name, FileMode.Open, FileAccess.Read);
+        file_lenght = (int)stream.Length;
+        Console.WriteLine("file_lenght = {0}", file_lenght);
         byte[] file_bytes = new byte[file_lenght];
         stream.Read(file_bytes, start_adr, file_lenght);
 
@@ -119,7 +121,7 @@ class ProgPC
         Console.WriteLine("send cmd cpu suspend");
         SendCmd((int)Prog_cmd.cpu_suspend);
         Thread.Sleep(100);
-
+/*
         UInt16 adr = 0x7ffd;
         for (int i = 0; i < 16; i++)
         {
@@ -138,24 +140,24 @@ class ProgPC
             port.Write(data, 0, 8);
             Thread.Sleep(300);
         }
-
         Thread.Sleep(300);
         port.Close();
         Environment.Exit(0);
+*/
 
 
         while (true)
         {
             Console.WriteLine("send cmd version");
             SendCmd((int)Prog_cmd.version);
-            Thread.Sleep(100);
+            Thread.Sleep(50);
 
             Console.WriteLine("send cmd cpu suspend");
             SendCmd((int)Prog_cmd.cpu_suspend);
-            Thread.Sleep(100);
+            Thread.Sleep(50);
 
             Console.WriteLine("send bytes {0}", file_lenght);
-            Thread.Sleep(3000);
+            Thread.Sleep(50);
             for (int i = 0; i < file_lenght/64; i++)
             {
                 for(int j = 0; j < 64; j++)
