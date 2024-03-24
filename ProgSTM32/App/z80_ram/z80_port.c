@@ -41,18 +41,28 @@ void z80_port_write(uint16_t Adr, uint8_t Data) {
     LL_GPIO_WriteOutputPort(RAMM_ADR_PORT, Adr);
     RAMMDELAY(25);
     // Установим данные на шине.
-    GPIOA->ODR = Data;
+    uint32_t temp = GPIOA->ODR;
+    temp &= 0xffffff00;
+    temp = temp | Data;
+    GPIOA->ODR = temp;
     RAMMDELAY(25);
     // Установим сигнал IORQ в низкий уровень.
     LL_GPIO_ResetOutputPin(IORQ_GPIO_Port, IORQ_Pin);
-    RAMMDELAY(25);
     // WR в низкий уровень.
     LL_GPIO_ResetOutputPin(WR_GPIO_Port, WR_Pin);
-    RAMMDELAY(22);
+    RAMMDELAY(25);
     // WR в высокий уровень.
     LL_GPIO_SetOutputPin(WR_GPIO_Port, WR_Pin);
-    RAMMDELAY(25);
     // Установим сигнал IORQ в высокий уровень.
     LL_GPIO_SetOutputPin(IORQ_GPIO_Port, IORQ_Pin);
     RAMMDELAY(25);
+    // Установим сигнал IORQ в низкий уровень.
+    LL_GPIO_ResetOutputPin(IORQ_GPIO_Port, IORQ_Pin);
+    // WR в низкий уровень.
+    LL_GPIO_ResetOutputPin(WR_GPIO_Port, WR_Pin);
+    RAMMDELAY(25);
+    // WR в высокий уровень.
+    LL_GPIO_SetOutputPin(WR_GPIO_Port, WR_Pin);
+    // Установим сигнал IORQ в высокий уровень.
+    LL_GPIO_SetOutputPin(IORQ_GPIO_Port, IORQ_Pin);
 }

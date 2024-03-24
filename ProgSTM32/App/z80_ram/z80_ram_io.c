@@ -50,8 +50,12 @@ void z80_ram_write(uint16_t adr, uint8_t data) {
     LL_GPIO_ResetOutputPin(WR_GPIO_Port, WR_Pin);
     RAMMDELAY(20);
     // Установим данные на шине.
-    GPIOA->ODR = data;
-    RAMMDELAY(1500);
+    uint32_t temp = GPIOA->ODR;
+    temp &= 0xffffff00;
+    temp = temp | data;
+    GPIOA->ODR = temp;
+    //GPIOA->ODR = data;
+    RAMMDELAY(150);
     // WR в высокий уровень.
     LL_GPIO_SetOutputPin(WR_GPIO_Port, WR_Pin);
     RAMMDELAY(10);
