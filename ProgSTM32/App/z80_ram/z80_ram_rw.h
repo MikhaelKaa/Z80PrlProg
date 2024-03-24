@@ -8,10 +8,9 @@
 
 #include "z80_ram.h"
 
-/* Чтение запись по одному байту. */
 
 // Задержка на NOPах. Привязана к частоте MCU.
-#define RAMMDELAY(t) for(uint32_t n = 0; n < t; n++) asm("NOP")
+#define RAMMDELAY(t) for(uint32_t n = 0; n < (t); n++) asm("NOP")
 
 
 /* Функции для отладки. */

@@ -45,6 +45,8 @@
             this.button_port_read = new System.Windows.Forms.Button();
             this.textBox_debug = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.button_byte_write = new System.Windows.Forms.Button();
+            this.button_byte_read = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button_port
@@ -219,11 +221,35 @@
             this.label2.TabIndex = 16;
             this.label2.Text = "label2";
             // 
+            // button_byte_write
+            // 
+            this.button_byte_write.Location = new System.Drawing.Point(398, 89);
+            this.button_byte_write.Margin = new System.Windows.Forms.Padding(2);
+            this.button_byte_write.Name = "button_byte_write";
+            this.button_byte_write.Size = new System.Drawing.Size(85, 27);
+            this.button_byte_write.TabIndex = 17;
+            this.button_byte_write.Text = "Byte write";
+            this.button_byte_write.UseVisualStyleBackColor = true;
+            this.button_byte_write.Click += new System.EventHandler(this.button_byte_write_Click);
+            // 
+            // button_byte_read
+            // 
+            this.button_byte_read.Location = new System.Drawing.Point(398, 120);
+            this.button_byte_read.Margin = new System.Windows.Forms.Padding(2);
+            this.button_byte_read.Name = "button_byte_read";
+            this.button_byte_read.Size = new System.Drawing.Size(85, 27);
+            this.button_byte_read.TabIndex = 18;
+            this.button_byte_read.Text = "Byte read";
+            this.button_byte_read.UseVisualStyleBackColor = true;
+            this.button_byte_read.Click += new System.EventHandler(this.button_byte_read_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(547, 231);
+            this.Controls.Add(this.button_byte_read);
+            this.Controls.Add(this.button_byte_write);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox_debug);
             this.Controls.Add(this.button_port_read);
@@ -269,6 +295,8 @@
         private System.Windows.Forms.Button button_port_read;
         private System.Windows.Forms.TextBox textBox_debug;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button_byte_write;
+        private System.Windows.Forms.Button button_byte_read;
     }
 }
 

@@ -264,5 +264,34 @@ namespace ProgPC_GUI
             } catch { }
             textBox_debug.Text = data.ToString();
         }
+
+        private void button_byte_write_Click(object sender, EventArgs e)
+        {
+            int adr;
+            try
+            {
+                adr = Convert.ToInt32(textBox_adr.Text, 16);
+            }
+            catch { return; }
+
+            int data;
+            try
+            {
+                data = Convert.ToInt32(textBox_data.Text, 16);
+            }
+            catch { return; }
+            send_command_to_z80db((byte)Prog_cmd.write_byte, adr, data);
+        }
+
+        private void button_byte_read_Click(object sender, EventArgs e)
+        {
+            int adr;
+            try
+            {
+                adr = Convert.ToInt32(textBox_adr.Text, 16);
+            }
+            catch { return; }
+            send_command_to_z80db((byte)Prog_cmd.read_byte, adr);
+        }
     }
 }

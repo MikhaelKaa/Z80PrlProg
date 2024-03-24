@@ -73,6 +73,8 @@ int z80_ram_read_block(uint8_t *Buf, uint16_t Addr, uint16_t Len);
 /// @return 0 
 int z80_ram_write_block(uint8_t *Buf, uint16_t Addr, uint16_t Len); 
 
+/* Чтение запись по одному байту. */
+
 /// @brief Чтение данных из BBSRAM по адресу.
 /// @param Adr - адрес 0...(RAM_LEN-1)
 /// @return значение байта по адресу
