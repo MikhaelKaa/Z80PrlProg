@@ -48,8 +48,11 @@
             this.button_byte_write = new System.Windows.Forms.Button();
             this.button_byte_read = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label_read_resuolt = new System.Windows.Forms.Label();
             this.textBox_read_result = new System.Windows.Forms.TextBox();
+            this.label_read_resuolt = new System.Windows.Forms.Label();
+            this.label_7FFD = new System.Windows.Forms.Label();
+            this.label_FFFD = new System.Windows.Forms.Label();
+            this.label_BFFD = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -266,6 +269,13 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Read/Write";
             // 
+            // textBox_read_result
+            // 
+            this.textBox_read_result.Location = new System.Drawing.Point(124, 50);
+            this.textBox_read_result.Name = "textBox_read_result";
+            this.textBox_read_result.Size = new System.Drawing.Size(43, 20);
+            this.textBox_read_result.TabIndex = 21;
+            // 
             // label_read_resuolt
             // 
             this.label_read_resuolt.AutoSize = true;
@@ -276,18 +286,47 @@
             this.label_read_resuolt.TabIndex = 20;
             this.label_read_resuolt.Text = "Read result";
             // 
-            // textBox_read_result
+            // label_7FFD
             // 
-            this.textBox_read_result.Location = new System.Drawing.Point(124, 50);
-            this.textBox_read_result.Name = "textBox_read_result";
-            this.textBox_read_result.Size = new System.Drawing.Size(43, 20);
-            this.textBox_read_result.TabIndex = 21;
+            this.label_7FFD.AutoSize = true;
+            this.label_7FFD.Location = new System.Drawing.Point(242, 261);
+            this.label_7FFD.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_7FFD.Name = "label_7FFD";
+            this.label_7FFD.Size = new System.Drawing.Size(33, 13);
+            this.label_7FFD.TabIndex = 20;
+            this.label_7FFD.Text = "7FFD";
+            this.label_7FFD.Click += new System.EventHandler(this.label_7FFD_Click);
+            // 
+            // label_FFFD
+            // 
+            this.label_FFFD.AutoSize = true;
+            this.label_FFFD.Location = new System.Drawing.Point(242, 286);
+            this.label_FFFD.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_FFFD.Name = "label_FFFD";
+            this.label_FFFD.Size = new System.Drawing.Size(33, 13);
+            this.label_FFFD.TabIndex = 21;
+            this.label_FFFD.Text = "FFFD";
+            this.label_FFFD.Click += new System.EventHandler(this.label_FFFD_Click);
+            // 
+            // label_BFFD
+            // 
+            this.label_BFFD.AutoSize = true;
+            this.label_BFFD.Location = new System.Drawing.Point(241, 311);
+            this.label_BFFD.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_BFFD.Name = "label_BFFD";
+            this.label_BFFD.Size = new System.Drawing.Size(34, 13);
+            this.label_BFFD.TabIndex = 22;
+            this.label_BFFD.Text = "BFFD";
+            this.label_BFFD.Click += new System.EventHandler(this.label_BFFD_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(288, 436);
+            this.Controls.Add(this.label_BFFD);
+            this.Controls.Add(this.label_FFFD);
+            this.Controls.Add(this.label_7FFD);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox_debug);
@@ -335,6 +374,9 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox textBox_read_result;
         private System.Windows.Forms.Label label_read_resuolt;
+        private System.Windows.Forms.Label label_7FFD;
+        private System.Windows.Forms.Label label_FFFD;
+        private System.Windows.Forms.Label label_BFFD;
     }
 }
 

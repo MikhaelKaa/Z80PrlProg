@@ -302,5 +302,20 @@ namespace ProgPC_GUI
             catch { return; }
             send_command_to_z80db((byte)Prog_cmd.read_byte, adr);
         }
+
+        private void label_7FFD_Click(object sender, EventArgs e)
+        {
+            textBox_adr.Text = "0x7FFD";
+        }
+
+        private void label_FFFD_Click(object sender, EventArgs e)
+        {
+            textBox_adr.Text = "0xFFFD";
+        }
+
+        private void label_BFFD_Click(object sender, EventArgs e)
+        {
+            textBox_adr.Text = "0xBFFD";
+        }
     }
 }
